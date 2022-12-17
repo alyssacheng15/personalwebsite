@@ -100,8 +100,9 @@ body {
 .button {
     background-color: #9A8282;
     color: #eee;
-    padding: 1vw 5vw;
+    padding: 1vw 2vw;
     text-decoration: none;
+    margin-right: 2vw;
 }
 
 .button:hover {
