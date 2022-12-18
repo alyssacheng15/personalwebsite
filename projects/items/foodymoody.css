@@ -91,7 +91,7 @@ body {
 .intro img {
     width: 35vw;
     margin-left: 7vw;
-    margin-top: 7vw;
+    margin-top: 1vw;
 }
 
 .title {
@@ -142,7 +142,7 @@ body {
     width: 25vw;
     line-height: 2.5vw;
     text-align: center;
-    margin-top: 9vw;
+    margin-top: 12vw;
 }
 
 .typography img {
@@ -156,7 +156,7 @@ body {
     width: 25vw;
     line-height: 2.5vw;
     text-align: center;
-    margin-top: 10vw;
+    margin-top: 12vw;
     margin-left: 16vw;
     margin-right: 9vw;
 }
