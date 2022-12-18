@@ -527,20 +527,7 @@ video {
     display: block;
 }
 
-/* FOOTER */
 
-footer {
-
-    background-color: #EFE6DC;
-    font-family: lucinda;
-    padding-bottom: 2vw;
-}
-
-.footer_text {
-    margin-left: 5vw;
-    padding-top: 2vw;
-    line-height: 2vw;
-}
 
 .projectstitle {
     margin-bottom: 10vw;
@@ -549,4 +536,30 @@ footer {
 
 .projectstitle p {
     margin-bottom: 7vw;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #EFE6DC;
+    font-family: Alegreya Sans;
+    padding-bottom: 2vw;
+}
+
+.footer_text {
+    padding-top: 2vw;
+    line-height: 2vw;
+    text-align: center;
+    font-size: 1.3vw;
+}
+
+.footer_icons {
+    display: flex;
+    justify-content: center;
+    padding-top: 1vw;
+}
+
+.footer_icons img {
+    margin: 1vw;
+    width: 2vw;
 }

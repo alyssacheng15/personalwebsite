@@ -90,7 +90,12 @@ body {
 .description1 h2 {
     font-family: Judson;
     color: #875E5E;
-    padding-bottom: 2vw;
+}
+
+.description1 h4, .description2 h4 {
+    font-family: Judson;
+    color: rgb(176, 152, 152);
+    font-size: 1.3vw;
 }
 
 .description1 p {
@@ -125,9 +130,34 @@ body {
 .description2 h2 {
     font-family: Judson;
     color: #875E5E;
-    padding-bottom: 2vw;
 }
 
 .description2 p {
     padding-bottom: 2vw;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #EFE6DC;
+    font-family: Alegreya Sans;
+    padding-bottom: 2vw;
+}
+
+.footer_text {
+    padding-top: 2vw;
+    line-height: 2vw;
+    text-align: center;
+    font-size: 1.3vw;
+}
+
+.footer_icons {
+    display: flex;
+    justify-content: center;
+    padding-top: 1vw;
+}
+
+.footer_icons img {
+    margin: 1vw;
+    width: 2vw;
 }
