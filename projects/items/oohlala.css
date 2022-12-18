@@ -85,6 +85,7 @@ body {
     width: 50vw;
     color: #A49292;
     margin-top: 1vw;
+    margin-bottom: 2vw;
 }
 
 .intro img {
@@ -168,7 +169,7 @@ video {
 }
 
 .buttons {
-    margin-top: 15vw;
+    margin-top: 10vw;
     margin-bottom: 10vw;
 }
 
@@ -187,6 +188,38 @@ video {
 .buttons a:hover {
     background-color: #9A8282;
     color: white;
+}
+
+.button {
+    background-color: #9A8282;
+    color: #eee;
+    padding: 1vw 4vw;
+    text-decoration: none;
+    font-family: Judson;
+    margin-left: 7vw;
+    font-size: 1.5vw;
+}
+
+.button:hover {
+    background-color: #b68787;
+}
+
+.button2 {
+    width: 15vw;
+    background-color: #9A8282;
+    color: #eee;
+    padding: 1vw 3vw;
+    text-decoration: none;
+    font-family: Judson;
+    font-size: 1.5vw;
+    display: block;
+    margin: auto;
+    text-align: center;
+    margin-top: 5vw;
+}
+
+.button2:hover {
+    background-color: #b68787;
 }
 
 /* FOOTER */
