@@ -90,8 +90,8 @@ body {
 
 .intro img {
     width: 35vw;
-    margin-left: 7vw;
-    margin-top: 5vw;
+    margin-left: 6vw;
+    margin-top: 8vw;
 }
 
 .title {
@@ -104,10 +104,15 @@ body {
 }
 
 .image {
-    width: 80vw;
+    width: 70vw;
     display: block;
     margin: auto;
     margin-top: 5vw;
+}
+
+.image2 {
+    width: 40vw;
+    margin-top: 10vw;
 }
 
 .text {
@@ -129,10 +134,10 @@ body {
     display: flex;
 }
 
-.color img {
+.typography img {
     width: 40vw;
     margin-top: 5vw;
-    margin-left: 10vw;
+    margin-left: 5vw;
     margin-right: 10vw;
 }
 
@@ -145,9 +150,11 @@ body {
     margin-top: 12vw;
 }
 
-.typography img {
+.color video {
     width: 40vw;
     margin-top: 5vw;
+    margin-left: 10vw;
+    margin-right: 8vw;
 }
 
 .typography p {
