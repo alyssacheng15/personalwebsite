@@ -110,7 +110,10 @@ body {
     margin-top: 5vw;
 }
 
-.image2 {
+.image1 {
+    width: 40vw;
+    display: block;
+    margin: auto;
     margin-top: 10vw;
 }
 
@@ -134,10 +137,10 @@ body {
 }
 
 .color img {
-    width: 40vw;
+    width: 60vw;
     margin-top: 5vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .color p {
@@ -150,7 +153,7 @@ body {
 }
 
 .typography img {
-    width: 40vw;
+    width: 60vw;
     margin-top: 5vw;
 }
 
@@ -161,8 +164,8 @@ body {
     line-height: 2.5vw;
     text-align: center;
     margin-top: 10vw;
-    margin-left: 16vw;
-    margin-right: 9vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 video {

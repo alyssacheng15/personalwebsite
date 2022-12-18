@@ -91,7 +91,7 @@ body {
 .intro img {
     width: 35vw;
     margin-left: 7vw;
-    margin-top: 1vw;
+    margin-top: 3vw;
 }
 
 .title {
@@ -227,6 +227,11 @@ video {
 
 .button2:hover {
     background-color: #b68787;
+}
+
+.button3 {
+    margin-left: 2vw;
+    padding: 1vw 2.8vw;
 }
 
 /* FOOTER */
