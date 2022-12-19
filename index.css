@@ -298,6 +298,38 @@ video {
 
 .cover img {
     width: 100%;
+    display: block;
+}
+
+.cover {
+    position: relative;
+}
+
+.cover iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35vw;
+    height: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10vw;
+    margin-top: 10vw;
+}
+
+.blocker {
+    position: absolute;
+    width: 12vw;
+    height: 3vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #EFE6DC;
+    top: 0;
+    left: 0;
+    margin-left: 32vw;
+    margin-top: 40.5vw;
 }
 
 /* SUMMARY */
