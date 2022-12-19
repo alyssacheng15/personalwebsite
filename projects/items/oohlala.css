@@ -20,7 +20,56 @@
 
 body {
     font-family: "poppins";
-    background: #EFEFEF;
+    background: #efefef;
+}
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    align-items: center;
+    margin: auto;
+    z-index: -1;
+    overflow: hidden;
+    font-family: Judson;
+    padding-top: 3vw;
+    padding-right: 2vw;
+    margin-bottom: -2vw;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    z-index: 1;
+    flex: 1;
+    padding: 1vw;
+    font-size: 20px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: rgb(157, 78, 78);
+    font-size: larger;
+
+}
+
+.nav-links img {
+    width: 13vw;
+    padding-right: 5vw;
+}
+
+.nav-links li {
+    margin-top: 1vw;
+    font-size: 1.5vw;
+    width: 5vw;
 }
 
 /* CURSOR */
@@ -89,8 +138,8 @@ body {
 }
 
 .intro img {
-    width: 40vw;
-    margin-left: 5vw;
+    width: 35vw;
+    margin-left: 7vw;
     margin-top: 5vw;
 }
 
@@ -178,11 +227,12 @@ video {
     color: black;
     padding: 1vw 2vw;
     text-decoration: none;
-    margin-right: 19vw;
-    margin-left: 19vw;
+    margin-right: 18vw;
+    margin-left: 18vw;
     border-style: double;
     border-color: #9A8282;
     font-family: Judson;
+    font-size: 1.4vw;
 }
 
 .buttons a:hover {

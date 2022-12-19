@@ -306,7 +306,8 @@ video {
     color: black;
     justify-content: center;
     text-align: center;
-    font-family: Cambria;
+    font-family: Alegreya Sans;
+    font-weight: bolder;
     margin: 0 10%;
     padding-top: 180px;
     margin-bottom: 80px;
@@ -317,7 +318,7 @@ video {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 100%;
+    width: 90%;
 }
 
 .summary_image {
@@ -347,13 +348,13 @@ video {
 .summary_button {
     justify-content: center;
     align-items: center;
-    margin-top: 2vw;
+    margin-top: 4vw;
     background: #9A8282;
-    margin-left: 40vw;
+    margin-left: 38vw;
 }
 
 .summary_button a {
-    font-family: poppins;
+    font-family: Judson;
     position: relative;
     display: flex;
     padding: 1.3vw 4.05vw;
