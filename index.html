@@ -6,14 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alyssa Cheng</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="projects.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&family=Belleza&family=Judson&display=swap" rel="stylesheet">
     <link rel="icon" href="/images/favicon.png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
 </head>
 
 <body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+     
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+     
+    </div>  
+    <div id="content">
     <div class="cursor"></div>
 
     <!-- <div class="button">
@@ -22,11 +31,30 @@
             <div class="button-overlay"></div>
         </a>
     </div> -->
-
+    
     <div class="cover">
-        <img src="images/cover background.png">
+        <img src="images/cover background.png" class="background">
+        <nav>
+            <ul id="nav_links" class="nav-links">
+                <a href="/index.html" class="logo"><image src="/images/logobeige.png"></image></a>
+                <li><a href="/index.html#about">about</a></li>
+                <li><a href="/index.html#skills">skills</a></li>
+                <li><a href="/projects/projects.html">projects</a></li>
+                <li><a href="/index.html#footer">contact</a></li>
+                <li><a href="/images/Alyssa Cheng - Curriculum Vitae.pdf" target="_blank">cv</a></li>
+            </ul>
+        </nav>
         <iframe src='https://my.spline.design/miniroommusiccopy-5244fdf1e04ac8a080fb9ba7feaae1ac/' frameborder='0' width='100%' height='100%'></iframe>
-        <!-- <div class="blocker"></div> -->
+        <div class="blocker"></div>
+        <div class="biotext">
+            <h1>ALYSSA</h1>
+            <h1 class="lastname">CHENG</h1>
+            <h3>creative coder</h3>
+            <h3>and</h3>
+        </div>
+        <div id="container">
+            <div id="text"></div><div id="cursor"></div>
+        </div>
     </div>
 
     <div class="summary" id="about">
@@ -70,6 +98,7 @@
      <div class="slant2">
         <img src="images/slant2.png">
     </div>
+
 
     <div class="projects" id="projects">
         <!-- <div class="projects_image">
@@ -156,6 +185,7 @@
         </div>
     
     </footer>
+</div>
 
     <script src="index.js"></script>
 
