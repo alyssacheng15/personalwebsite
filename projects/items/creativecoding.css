@@ -10,6 +10,18 @@
     text-rendering: optimizeLegibility;
 }
 
+/* LOADER */
+
+#loader {
+    background: #EFEFEF url(/images/loader.gif) center no-repeat;
+    background-size: 20vw;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 1000;
+    cursor: auto;
+}
+
 * {
     margin: 0;
     padding: 0;
