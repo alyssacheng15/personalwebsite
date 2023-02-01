@@ -165,18 +165,10 @@ nav a:hover {
 }
 
 .image {
-    width: 80vw;
-    display: block;
-    margin: auto;
-    margin-top: 5vw;
-}
-
-.finalproduct img {
-    width: 40vw;
+    width: 70vw;
     display: block;
     margin: auto;
     margin-top: 10vw;
-    margin-bottom: 10vw; /* delete later */
 }
 
 .text {
@@ -297,6 +289,20 @@ video {
 
 .button2:hover {
     background-color: #b68787;
+}
+
+.button3 {
+    margin-left: 2vw;
+    padding: 1vw 2.8vw;
+}
+
+.model {
+    display: block;
+    margin-top: 5vw;
+    height: 35vw;
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* FOOTER */

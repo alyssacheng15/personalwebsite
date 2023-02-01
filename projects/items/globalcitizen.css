@@ -168,7 +168,7 @@ nav a:hover {
     width: 80vw;
     display: block;
     margin: auto;
-    margin-top: 5vw;
+    margin-top: 10vw;
 }
 
 .image1 {
@@ -296,6 +296,13 @@ video {
 
 .button2:hover {
     background-color: #b68787;
+}
+
+iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vw;
 }
 
 /* FOOTER */

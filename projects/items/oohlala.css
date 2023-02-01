@@ -284,6 +284,13 @@ video {
     background-color: #b68787;
 }
 
+iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vw;
+}
+
 /* FOOTER */
 
 footer {

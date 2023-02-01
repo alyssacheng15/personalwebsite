@@ -165,14 +165,14 @@ nav a:hover {
 }
 
 .image {
-    width: 80vw;
+    width: 60vw;
     display: block;
     margin: auto;
     margin-top: 5vw;
 }
 
 .finalproduct img {
-    width: 40vw;
+    width: 50vw;
     display: block;
     margin: auto;
     margin-top: 10vw;
@@ -211,7 +211,7 @@ nav a:hover {
     width: 25vw;
     line-height: 2.5vw;
     text-align: center;
-    margin-top: 10vw;
+    margin-top: 14vw;
 }
 
 .typography img {
@@ -290,6 +290,15 @@ video {
 
 .button2:hover {
     background-color: #b68787;
+}
+
+iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vw;
+    width: 50vw;
+    height: 30vw;
 }
 
 /* FOOTER */
