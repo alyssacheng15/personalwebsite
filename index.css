@@ -174,6 +174,7 @@ nav a:hover {
 .logo img {
     width: 13vw;
     padding-right: 5vw;
+    pointer-events: none;
 }
 
 .nav-links li {
@@ -215,6 +216,7 @@ nav a:hover {
     transition: transform 1.4s;
     width: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
 .image1:hover img {
@@ -273,6 +275,7 @@ nav a:hover {
     transition: transform 1.4s;
     width: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
 .image2:hover img {
@@ -330,6 +333,7 @@ nav a:hover {
     transition: transform 1.4s;
     width: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
 .image3:hover img {
@@ -434,6 +438,7 @@ nav a:hover {
 .background {
     width: 100%;
     display: block;
+    pointer-events: none;
 }
 
 .cover {
@@ -495,6 +500,7 @@ nav a:hover {
 .summary_image img {
     width: 80%;
     margin-left: 5%;
+    pointer-events: none;
 }
 
 .summary_text {
@@ -539,7 +545,8 @@ nav a:hover {
 
 .squiggle img{
     width: 100vw;
-    margin-top: 10%
+    margin-top: 10%;
+    pointer-events: none;
 }
 
 /* PROJECTS */
@@ -554,12 +561,14 @@ nav a:hover {
     height: 18vw;
     margin-left: 7%;
     margin-top: 10%;
+    pointer-events: none;
 }
 
 .featured img {
     width: 20vw;
     margin-left: 65vw;
     margin-top: 5vw;
+    pointer-events: none;
 }
 
 .row1 {
@@ -655,6 +664,7 @@ nav a:hover {
 
 .slant2 img{
     width: 100vw;
+    pointer-events: none;
 }
 
 .border img {
@@ -693,6 +703,7 @@ nav a:hover {
     width: 90vw;
     margin: auto;
     display: block;
+    pointer-events: none;
 }
 
 
@@ -730,4 +741,5 @@ footer {
 .footer_icons img {
     margin: 1vw;
     width: 2vw;
+    pointer-events: none;
 }
