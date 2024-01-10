@@ -3,3 +3,6 @@ Personal portfolio website that holds all of my projects, inspirations, and crea
 
 ## Website Link
 https://alyssachengdev.com
+
+### LinkedIn
+https://www.linkedin.com/in/alyssa-cheng/
