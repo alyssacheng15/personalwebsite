@@ -25,13 +25,12 @@ navLinks.forEach(link => {
 // List of sentences
 var _CONTENT = [ 
 	"developer",
-    "web designer",
     "traveler",
-    "cultural explorer",
+    "explorer",
     "ramen enthusiast",
     "piano player",
     "duolingo fanatic",
-    "plane lover"
+    "pilot"
 ];
 
 // Current sentence being processed
