@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
+import StatusWidget from './components/StatusWidget'
 import Home from './pages/Home'
 import About from './pages/About'
 import ExperiencePage from './pages/ExperiencePage'
@@ -165,6 +166,7 @@ export default function App() {
       <NodeGraph />
       <ScrollToTop />
       <ScrollReveal />
+      <StatusWidget />
       <Routes>
         <Route path="/"                         element={<Home />} />
         <Route path="/about"                    element={<About />} />

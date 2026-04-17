@@ -73,23 +73,23 @@ const SIZES = {
 }
 
 const ROW_1 = [
-  { city: 'Tokyo',      country: 'Japan',    photo: null, size: 'p-sm',  rot: -4  },
-  { city: 'Lisbon',     country: 'Portugal', photo: null, size: 'l-md',  rot:  3  },
-  { city: 'Budapest',   country: 'Hungary',  photo: null, size: 'p-lg',  rot: -2  },
-  { city: 'Taipei',     country: 'Taiwan',   photo: null, size: 'sq',    rot:  5  },
-  { city: 'Copenhagen', country: 'Denmark',  photo: null, size: 'p-xs',  rot: -3  },
-  { city: 'Bangkok',    country: 'Thailand', photo: null, size: 'l-sm',  rot:  2  },
-  { city: 'Tokyo',      country: 'Japan',    photo: null, size: 'p-md',  rot: -5  },
+  { city: 'Tokyo',      country: 'Japan',    photo: '/images/alyssa2.jpeg', size: 'p-sm',  rot: -4  },
+  { city: 'Lisbon',     country: 'Portugal', photo: '/images/alyssa2.jpeg', size: 'l-md',  rot:  3  },
+  { city: 'Budapest',   country: 'Hungary',  photo: '/images/alyssa2.jpeg', size: 'p-lg',  rot: -2  },
+  { city: 'Taipei',     country: 'Taiwan',   photo: '/images/alyssa2.jpeg', size: 'sq',    rot:  5  },
+  { city: 'Copenhagen', country: 'Denmark',  photo: '/images/alyssa2.jpeg', size: 'p-xs',  rot: -3  },
+  { city: 'Bangkok',    country: 'Thailand', photo: '/images/alyssa2.jpeg', size: 'l-sm',  rot:  2  },
+  { city: 'Tokyo',      country: 'Japan',    photo: '/images/alyssa2.jpeg', size: 'p-md',  rot: -5  },
 ]
 
 const ROW_2 = [
-  { city: 'Vienna',     country: 'Austria',  photo: null, size: 'l-lg',  rot:  3  },
-  { city: 'NYC',        country: 'USA',      photo: null, size: 'p-xs',  rot: -4  },
-  { city: 'Malmö',      country: 'Sweden',   photo: null, size: 'p-md',  rot:  2  },
-  { city: 'Munich',     country: 'Germany',  photo: null, size: 'l-sm',  rot: -5  },
-  { city: 'Vancouver',  country: 'Canada',   photo: null, size: 'p-lg',  rot:  4  },
-  { city: 'Lisbon',     country: 'Portugal', photo: null, size: 'sq',    rot: -2  },
-  { city: 'Bratislava', country: 'Slovakia', photo: null, size: 'l-md',  rot:  1  },
+  { city: 'Vienna',     country: 'Austria',  photo: '/images/alyssa2.jpeg', size: 'l-lg',  rot:  3  },
+  { city: 'NYC',        country: 'USA',      photo: '/images/alyssa2.jpeg', size: 'p-xs',  rot: -4  },
+  { city: 'Malmö',      country: 'Sweden',   photo: '/images/alyssa2.jpeg', size: 'p-md',  rot:  2  },
+  { city: 'Munich',     country: 'Germany',  photo: '/images/alyssa2.jpeg', size: 'l-sm',  rot: -5  },
+  { city: 'Vancouver',  country: 'Canada',   photo: '/images/alyssa2.jpeg', size: 'p-lg',  rot:  4  },
+  { city: 'Lisbon',     country: 'Portugal', photo: '/images/alyssa2.jpeg', size: 'sq',    rot: -2  },
+  { city: 'Bratislava', country: 'Slovakia', photo: '/images/alyssa2.jpeg', size: 'l-md',  rot:  1  },
 ]
 
 function Polaroid({ item }) {

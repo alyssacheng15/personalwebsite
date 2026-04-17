@@ -10,6 +10,7 @@ const ALL_PROJECTS = [
     image: '/projects/images/triply.png',
     link: 'https://triply-app.vercel.app/',
     external: true,
+    glass: true,
   },
   {
     title: 'Foody Moody',
@@ -18,6 +19,7 @@ const ALL_PROJECTS = [
     image: '/projects/images/fmside.png',
     link: '',
     external: true,
+    glass: true,
   },
   {
     title: 'Zone',
@@ -26,6 +28,7 @@ const ALL_PROJECTS = [
     image: '/projects/images/zone.png',
     link: 'https://flow-state.figma.site',
     external: true,
+    glass: true,
   },
   {
     title: 'ReGenVen Studio',
@@ -34,6 +37,7 @@ const ALL_PROJECTS = [
     image: '/projects/images/comingsoon.png',
     link: 'https://www.regenvenstudio.com/',
     external: true,
+    glass: true,
   },
   {
     title: 'Ooh La La Panini',
@@ -41,6 +45,7 @@ const ALL_PROJECTS = [
     tags: ['Figma', 'UI/UX', 'Branding', 'Web Design'],
     image: '/projects/images/oohlalaCover.png',
     link: '/projects/oohlala',
+    glass: true,
   },
   {
     title: '3D Miniature City',
@@ -48,6 +53,7 @@ const ALL_PROJECTS = [
     tags: ['Autodesk Maya', 'Arnold', '3D', 'Animation'],
     image: '/projects/images/3d.png',
     link: '/projects/3d',
+    glass: true,
   },
 ]
 
@@ -64,7 +70,7 @@ export default function ProjectsList() {
 
         <div className="project-cards-grid">
           {ALL_PROJECTS.map((p, i) => {
-            const cardClass = `project-card scroll-reveal`
+            const cardClass = `project-card scroll-reveal${p.glass ? ' project-card--glass' : ''}`
             const cardStyle = { transitionDelay: `${(i % 3) * 0.08}s` }
             const inner = (
               <>

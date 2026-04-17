@@ -55,6 +55,7 @@ const HOME_PROJECTS = [
     image: '/projects/images/triply.png',
     link: 'https://triply-app.vercel.app/',
     external: true,
+    glass: true,
   },
   {
     title: 'Foody Moody',
@@ -63,6 +64,7 @@ const HOME_PROJECTS = [
     image: '/projects/images/fmside.png',
     link: '',
     external: true,
+    glass: true,
   },
   {
     title: 'Zone',
@@ -71,6 +73,7 @@ const HOME_PROJECTS = [
     image: '/projects/images/zone.png',
     link: 'https://flow-state.figma.site',
     external: true,
+    glass: true,
   },
 ]
 
@@ -82,7 +85,7 @@ function ProjectCards() {
       </div>
       <div className="project-cards-grid">
         {HOME_PROJECTS.map((p, i) => {
-          const cls = 'project-card scroll-reveal'
+          const cls = `project-card scroll-reveal${p.glass ? ' project-card--glass' : ''}`
           const sty = { transitionDelay: `${(i % 3) * 0.08}s` }
           const inner = (
             <>
@@ -273,7 +276,7 @@ export default function Home() {
 
   // Show scroll hint after 3s, hide on first scroll
   useEffect(() => {
-    const timer = setTimeout(() => setScrollHintVisible(true), 3000)
+    const timer = setTimeout(() => setScrollHintVisible(true), 1500)
     const onScroll = () => setScrollHintVisible(false)
     window.addEventListener('scroll', onScroll, { passive: true, once: true })
     return () => {
@@ -302,7 +305,7 @@ export default function Home() {
 
           <div className="hero-bio-block">
             <p className="hero-bio">
-              Hi! I'm a student at UC Berkeley studying Data Science & CS. I'm passionate about building innovative solutions 
+              Hi! I'm a student at UC Berkeley studying Data Science & Computer Science. I'm passionate about building innovative solutions 
               and exploring the intersection of technology, creativity, and social good.
             </p>
             <div className="hero-ctas">
