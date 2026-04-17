@@ -65,7 +65,7 @@ export default function ExperiencePage() {
 
   return (
     <>
-      <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+      <div style={{ minHeight: '100vh' }}>
         <Navbar />
         <div className="experience" style={{ paddingTop: '8vw' }}>
           <div className="title">

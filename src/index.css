@@ -93,6 +93,8 @@ video { width: 100%; }
   justify-content: center;
   padding: clamp(10px, 1.6vw, 22px) 4vw;
   transition: background 0.45s ease, backdrop-filter 0.45s ease;
+  background: rgba(17, 17, 17, 0.3);
+  backdrop-filter: blur(4px);
 }
 .top-nav--scrolled {
   background: rgba(17,17,17,0.72);
@@ -148,7 +150,7 @@ video { width: 100%; }
 .cover {
   position: relative;
   min-height: 100vh;
-  background: var(--bg);
+  background: transparent;
   display: flex;
   align-items: stretch;
 }
@@ -265,8 +267,8 @@ video { width: 100%; }
 }
 
 .hero-photo {
-  width: 17vw;
-  height: 22vw;
+  width: 22vw;
+  height: 27vw;
   border: 1px solid var(--border);
   overflow: hidden;
   background: var(--bg-card);
@@ -327,7 +329,7 @@ body::after {
 /* ══════════════════════════════════════════
    EXPERIENCE / TIMELINE
 ══════════════════════════════════════════ */
-.experience { background: var(--bg); padding-bottom: 3vw; }
+.experience { padding-bottom: 3vw; }
 
 .timeline { position:relative; padding:0 8vw 0 13vw; margin-top:3vw; }
 
@@ -365,7 +367,7 @@ body::after {
 /* ══════════════════════════════════════════
    SKILLS
 ══════════════════════════════════════════ */
-.curiosities { background: var(--bg); padding-bottom: 0vw; }
+.curiosities { padding-bottom: 0vw; }
 
 .title {
   padding-top:0vw; padding-left:5vw; padding-bottom:2vw;
@@ -415,7 +417,7 @@ body::after {
 /* ══════════════════════════════════════════
    PROJECTS (card grid)
 ══════════════════════════════════════════ */
-.projects-section { background: var(--bg); padding-bottom: 4vw; }
+.projects-section { padding-bottom: 4vw; }
 
 .project-cards-grid {
   padding: 0 5vw;
@@ -492,7 +494,7 @@ body::after {
 /* ══════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════ */
-footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw; }
+footer { font-family:'Alegreya Sans'; padding-bottom:2vw; }
 .footer_text { padding-top:2vw; line-height:2vw; text-align:center; font-size:1.3vw; }
 .footer_text p { color: var(--subtle); }
 .footer_icons { display:flex; justify-content:center; padding-top:1vw; gap: 1.5vw; }
@@ -504,7 +506,7 @@ footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw;
    SCROLL REVEAL
 ══════════════════════════════════════════ */
 .scroll-reveal {
-  opacity:0; transform:translateY(36px);
+  opacity:1; transform:translateY(0);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 .scroll-reveal.from-left  { transform:translateX(-44px); }
@@ -515,7 +517,7 @@ footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw;
    PROJECTS LISTING PAGE
 ══════════════════════════════════════════ */
 .projects-listing-wrap {
-  background: var(--bg); position:relative; min-height:100vh;
+  position:relative; min-height:100vh;
 }
 .projects-listing-wrap .header {
   text-align:center; padding-top:5vw;
@@ -645,7 +647,6 @@ footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw;
    ABOUT PAGE
 ══════════════════════════════════════════ */
 .about-page {
-  background: var(--bg);
   min-height: 100vh;
 }
 
@@ -787,7 +788,6 @@ footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw;
    PLACES PAGE
 ══════════════════════════════════════════ */
 .places-page {
-  background: var(--bg);
   min-height: 100vh;
 }
 
@@ -914,7 +914,6 @@ footer { background: var(--bg); font-family:'Alegreya Sans'; padding-bottom:2vw;
    POLAROID GALLERY
 ══════════════════════════════════════════ */
 .gallery-section {
-  background: var(--bg);
   padding-bottom: 8vw;
   --ps: 1;
 }
