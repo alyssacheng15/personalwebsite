@@ -3,129 +3,141 @@ import Footer from '../components/Footer'
 
 const HOBBIES = [
   {
-    icon: '✈️',
-    label: 'Piloting',
-    desc: 'Student pilot chasing her wings — one flight lesson at a time.',
+    num: '01',
+    label: 'Flying',
+    desc: "Student pilot, chasing my PPL. Favorite moment: the second the wheels first leave the ground. Bay Area tower, Reid-Hillview 31R.",
   },
   {
-    icon: '🎹',
+    num: '02',
     label: 'Piano',
-    desc: 'Classically trained since age five, still playing late into the night.',
+    desc: 'Classically trained since age five. Chopin ballades & Debussy on repeat. A piano is the closest thing I have to a diary.',
   },
   {
-    icon: '🍜',
-    label: 'Food connoisseur',
-    desc: 'On a lifelong mission to find the world\'s best bowl of ramen.',
+    num: '03',
+    label: 'Food',
+    desc: "Self-appointed Berkeley food scout. Built Triply partly because I have too many saved TikToks of restaurants I'll never find again.",
   },
   {
-    icon: '🎧',
-    label: 'Learning languages',
-    desc: 'I speak English & Mandarin fluently. Currently learning Swedish and Spanish.',
+    num: '04',
+    label: 'Languages',
+    desc: 'Duolingo streak I won\'t admit to out loud. English & Mandarin fluently; currently: Spanish & Swedish. Linguistics is just pattern-matching with a soul.',
   },
   {
-    icon: '🌅',
+    num: '05',
     label: 'Chasing sunsets',
     desc: 'Collector of golden hours across skylines, mountains, and coastlines.',
   },
   {
-    icon: '🌍',
+    num: '06',
     label: 'Traveling',
-    desc: 'Happiest with a one-way ticket and no plan — 16 cities and counting.',
+    desc: 'Happiest with a one-way ticket and no plan. Maintaining a running list of places I want to land — in both senses.',
   },
   {
-    icon: '🎵',
-    label: 'Curating music',
-    desc: 'Building playlists for every mood and moment.',
+    num: '07',
+    label: 'Music',
+    desc: 'Building playlists for every mood and moment. Currently: late-night lo-fi and Radiohead deep cuts.',
   },
   {
-    icon: '🏔️',
+    num: '08',
     label: 'Hiking',
-    desc: 'Exploring trails and chasing mountain views.',
+    desc: 'Exploring trails and chasing mountain views. The Bay Area has more than people expect.',
   },
   {
-    icon: '📚',
+    num: '09',
     label: 'Reading',
-    desc: 'Lost in stories and new ideas.',
+    desc: 'Biographies of engineers, airline ops manuals, and the occasional sci-fi. Currently: Skunk Works, then back to Project Hail Mary.',
   },
   {
-    icon: '🎨',
-    label: 'Creating',
-    desc: 'Designing and building beautiful things.',
+    num: '10',
+    label: '3D & Design',
+    desc: 'Autodesk Maya, Spline, Figma. Half my side projects start as an object rotating slowly in a dark scene.',
   },
 ]
-
-function HobbyCard({ hobby, index }) {
-  return (
-    <div
-      className="hobby-card scroll-reveal"
-      style={{ transitionDelay: `${index * 0.08}s` }}
-    >
-      <div className="hobby-placeholder">
-        <img src="/images/alyssa2.jpeg" alt={hobby.label} />
-      </div>
-      <div className="hobby-label">{hobby.label}</div>
-      <p className="hobby-desc">{hobby.desc}</p>
-    </div>
-  )
-}
 
 export default function About() {
   return (
     <>
-      <div className="about-page">
-        <Navbar />
+      <Navbar />
 
-        {/* ── Intro ── */}
-        <div className="title" style={{ paddingTop: '8vw', paddingLeft: '5vw' }}>
-          <h1>about.</h1>
-          <p>a little about who i am</p>
-        </div>
-        {/* ── Alyssa Photos Row ── */}
-        <div className="about-photos-row">
-          <img src="/images/alyssa2.jpeg" alt="Alyssa 1" className="about-photo photo-1" />
-          <img src="/images/alyssa1.jpeg" alt="Alyssa 2" className="about-photo photo-2" />
-          <img src="/images/alyssa3.jpeg" alt="Alyssa 3" className="about-photo photo-3" />
-        </div>
-        <section className="about-intro scroll-reveal" style={{ paddingTop: '8vw' }}>
-          <div className="about-intro-right">
-            <p className="about-bio-desc">
-              Hi! I'm Alyssa, a Computer Science + Data Science student at UC Berkeley building things at the intersection
-              of software and the real world. You can find me grinding at a cafe, trying a new restaurant, at the
-              piano, or up in the air flying!
-            </p>
-            <p className="about-bio-desc">
-              I care about craft in code, in design, and in life. The best engineers are
-              also curious humans, so I try to do everything with intention.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Hobbies ── */}
-        <section className="about-hobbies">
-          <div className="title">
-            <h1>beyond the code.</h1>
-            <p>what keeps me grounded outside of a terminal</p>
-          </div>
-          <div className="hobbies-paragraph">
-            <p>
-              I spend my time {HOBBIES.map((h, i) => (
-                <span key={h.label}>
-                  {h.label.toLowerCase()}
-                  {i < HOBBIES.length - 1 && ', '}
-                  {i === HOBBIES.length - 2 && 'and '}
-                </span>
-              ))}. These are the things that bring me joy and creativity outside of code.
-            </p>
-          </div>
-          <div className="hobbies-grid">
-            {HOBBIES.map((h, i) => (
-              <HobbyCard key={h.label} hobby={h} index={i} />
-            ))}
-          </div>
-        </section>
+      {/* Page header */}
+      <div className="page-head">
+        <span className="section-num">● About</span>
+        <h1>Hi! I'm Alyssa.</h1>
+        {/* <p className="sub">a short flight log of how i got here — and where i'm headed.</p> */}
       </div>
 
-      <Footer />
+      {/* Bio */}
+      <div className="about-bio">
+        {/* <div className="about-bio-meta reveal">
+          <div className="row"><span className="label">Name</span><span className="val">Alyssa Cheng</span></div>
+          <div className="row"><span className="label">Based</span><span className="val blue">Berkeley · SF Bay</span></div>
+          <div className="row"><span className="label">School</span><span className="val">UC Berkeley · '27</span></div>
+          <div className="row"><span className="label">Studying</span><span className="val">CS + Data Science</span></div>
+          <div className="row"><span className="label">Now</span><span className="val">Prepping for Salesforce summer</span></div>
+          <div className="row"><span className="label">Open to</span><span className="val blue">full-time '27 · early-stage</span></div>
+        </div> */}
+              {/* Photos */}
+      <div className="about-photos-row">
+        <img src="/images/alyssa1.jpeg" alt="Alyssa" className="about-photo photo-1 reveal" />
+        <img src="/images/alyssa2.jpeg" alt="Alyssa" className="about-photo photo-2 reveal" style={{ transitionDelay: '.08s' }} />
+        {/* <img src="/images/alyssa3.jpeg" alt="Alyssa" className="about-photo photo-3 reveal" style={{ transitionDelay: '.16s' }} /> */}
+      </div>
+        <div className="about-bio-text reveal" style={{ transitionDelay: '.1s' }}>
+          <p>
+            I grew up curious about how things fit together — planes, circuits, sentences, food.
+            That curiosity became a habit: pick one problem apart, then the next. Now I study CS
+            and data science at Berkeley, and I spend my time shipping real software.
+          </p>
+          <p>
+            Most recently I built LiDAR-to-depth pipelines at Lucid and shipped a semantic
+            ad-ranking model to Nextdoor's feed. Before that I wrote
+            an LLM SDK that lets agents swap on Uniswap at Magic Labs. Next: distributed
+            messaging on the MuleSoft team at Salesforce.
+          </p>
+          <p>
+            Off the keyboard, I'm training for my private pilot's license — slowly racking up
+            hours at Reid-Hillview. I also play too much piano, study too much Spanish on
+            Duolingo, and maintain a running list of places I want to land (in both senses).
+          </p>
+          <p>
+            I like working with people who take craft seriously and ship fast. If that sounds
+            like you, <a href="mailto:alyssacheng@berkeley.edu">say hi</a>.
+          </p>
+        </div>
+      </div>
+
+      {/* Divider */}
+      {/* <div className="runway-divider">
+        <div className="runway-line" />
+        <span className="runway-label">▲ outside of work</span>
+        <div className="runway-line" />
+      </div> */}
+
+      {/* Hobbies */}
+      <section className="hobbies-section">
+        <div className="section-header reveal">
+          <div>
+            <span className="section-num">off-duty</span>
+            <h2 className="section-title">What fills<br />the rest.</h2>
+          </div>
+          <p className="section-sub">the list is long — here are the recurring ones.</p>
+        </div>
+        <div className="hobbies-grid-new">
+          {HOBBIES.map((h, i) => (
+            <div
+              key={h.label}
+              className="hobby-card-new reveal"
+              style={{ transitionDelay: `${i * 0.06}s` }}
+            >
+              <div className="hobby-num">{h.num}</div>
+              <div className="hobby-label-new">{h.label}</div>
+              <p className="hobby-desc-new">{h.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Footer quote="Ready to" subQuote="trade altitude stories?" />
     </>
   )
 }

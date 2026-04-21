@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
-import StatusWidget from './components/StatusWidget'
 import Home from './pages/Home'
 import About from './pages/About'
 import ExperiencePage from './pages/ExperiencePage'
@@ -18,111 +17,293 @@ import Skin from './pages/projects/Skin'
 import ThreeD from './pages/projects/ThreeD'
 import Sft from './pages/projects/Sft'
 
+/* ── Background gradient ── */
+function BgGradient() {
+  return <div className="bg-gradient" />
+}
+
+/* ── Film grain ── */
+function Grain() {
+  return <div className="grain" />
+}
+
+/* ── Multi-layer node graph with mouse repulsion and scroll parallax ── */
 function NodeGraph() {
   useEffect(() => {
-    const canvas = document.getElementById('node-graph')
+    const canvas = document.getElementById('nodes')
     if (!canvas) return
-
     const ctx = canvas.getContext('2d')
-    const nodes = []
-    const nodeCount = 60
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let W, H
+    const mouse = { x: -9999, y: -9999 }
+    const desktopLayers = [
+      { count: 25, speed: 0.15, size: [0.8, 1.4], opacity: 0.28, parallax: 0.6, depth: 0.5 },
+      { count: 35, speed: 0.08, size: [1.0, 1.6], opacity: 0.45, parallax: 0.4, depth: 0.8 },
+      { count: 20, speed: 0.04, size: [1.2, 2.0], opacity: 0.65, parallax: 0.2, depth: 1.2 },
+    ]
+    const mobileLayers = [
+      { count: 18, speed: 0.12, size: [0.4, 0.7], opacity: 0.12, parallax: 0.6, depth: 0.35 },
+      { count: 24, speed: 0.06, size: [0.5, 0.9], opacity: 0.20, parallax: 0.4, depth: 0.55 },
+      { count: 14, speed: 0.03, size: [0.7, 1.1], opacity: 0.30, parallax: 0.2, depth: 0.8 },
+    ]
+    let nodes = []
+    let connectAlpha = 0.32
 
-    // Set canvas to window size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-
-    // Initialize nodes
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.08,
-        vy: (Math.random() - 0.5) * 0.08,
-        radius: Math.random() * 1.2 + 0.8,
+    function resize() {
+      W = canvas.width = window.innerWidth * dpr
+      H = canvas.height = window.innerHeight * dpr
+      canvas.style.width = window.innerWidth + 'px'
+      canvas.style.height = window.innerHeight + 'px'
+      const isMobile = window.innerWidth < 650
+      const layers = isMobile ? mobileLayers : desktopLayers
+      connectAlpha = isMobile ? 0.16 : 0.32
+      nodes = []
+      layers.forEach((l, layerIdx) => {
+        for (let i = 0; i < l.count; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * l.speed * dpr,
+            vy: (Math.random() - 0.5) * l.speed * dpr,
+            r: (l.size[0] + Math.random() * (l.size[1] - l.size[0])) * dpr,
+            o: l.opacity,
+            layer: layerIdx,
+            depth: l.depth,
+            parallax: l.parallax,
+          })
+        }
       })
     }
+    resize()
+    window.addEventListener('resize', resize)
+    const onMouseMove = e => {
+      if (document.body.dataset.nodeQuiet === 'true') {
+        mouse.x = -9999; mouse.y = -9999
+      } else {
+        mouse.x = e.clientX * dpr; mouse.y = e.clientY * dpr
+      }
+    }
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999 })
 
-    const animate = () => {
-      ctx.fillStyle = 'rgba(17, 17, 17, 1)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    let scrollY = 0
+    window.addEventListener('scroll', () => { scrollY = window.scrollY }, { passive: true })
 
-      // Update and draw nodes
-      nodes.forEach(node => {
-        node.x += node.vx
-        node.y += node.vy
+    const CONNECT = 140 * dpr
+    const MOUSE_R = 180 * dpr
 
-        // Wrap around
-        if (node.x < 0) node.x = canvas.width
-        if (node.x > canvas.width) node.x = 0
-        if (node.y < 0) node.y = canvas.height
-        if (node.y > canvas.height) node.y = 0
+    const wrapY = y => ((y % H) + H) % H
 
-        // Draw node
-        ctx.fillStyle = 'rgba(232, 228, 220, 0.22)'
+    function draw() {
+      ctx.clearRect(0, 0, W, H)
+      for (const n of nodes) {
+        n.x += n.vx
+        n.y += n.vy
+        const ddx = n.x - mouse.x
+        const ddy = n.y - mouse.y
+        const dist = Math.sqrt(ddx * ddx + ddy * ddy)
+        if (dist < MOUSE_R) {
+          const force = (1 - dist / MOUSE_R) * 0.6
+          n.x += (ddx / dist) * force
+          n.y += (ddy / dist) * force
+        }
+        if (n.x < 0) n.x = W; if (n.x > W) n.x = 0
+        if (n.y < 0) n.y = H; if (n.y > H) n.y = 0
+        const ry = wrapY(n.y + (-scrollY * n.parallax * dpr))
+        ctx.fillStyle = `rgba(232, 228, 220, ${n.o})`
         ctx.beginPath()
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
+        ctx.arc(n.x, ry, n.r, 0, Math.PI * 2)
         ctx.fill()
-      })
-
-      // Draw connections
-      ctx.strokeStyle = 'rgba(232, 228, 220, 0.12)'
-      ctx.lineWidth = 0.5
-      const maxDist = 150
-
+      }
+      ctx.lineWidth = 0.7 * dpr
       for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i]
+        const ayOff = wrapY(a.y + (-scrollY * a.parallax * dpr))
         for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x
-          const dy = nodes[i].y - nodes[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-
-          if (dist < maxDist) {
-            ctx.globalAlpha = 1 - (dist / maxDist)
+          const b = nodes[j]
+          if (a.layer !== b.layer) continue
+          const dx = a.x - b.x
+          const byOff = wrapY(b.y + (-scrollY * b.parallax * dpr))
+          const dy = ayOff - byOff
+          const d = Math.sqrt(dx * dx + dy * dy)
+          if (d < CONNECT) {
+            const alpha = (1 - d / CONNECT) * connectAlpha * a.depth
+            const acx = a.x - mouse.x, acy = ayOff - mouse.y
+            const toMouse = Math.sqrt(acx * acx + acy * acy)
+            ctx.strokeStyle = toMouse < MOUSE_R
+              ? `rgba(122, 167, 255, ${alpha * 2})`
+              : `rgba(232, 228, 220, ${alpha})`
             ctx.beginPath()
-            ctx.moveTo(nodes[i].x, nodes[i].y)
-            ctx.lineTo(nodes[j].x, nodes[j].y)
+            ctx.moveTo(a.x, ayOff)
+            ctx.lineTo(b.x, byOff)
             ctx.stroke()
-            ctx.globalAlpha = 1
           }
         }
       }
-
-      requestAnimationFrame(animate)
+      requestAnimationFrame(draw)
     }
-
-    animate()
-
-    return () => window.removeEventListener('resize', resizeCanvas)
+    draw()
+    return () => window.removeEventListener('resize', resize)
   }, [])
 
   return (
     <canvas
-      id="node-graph"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        zIndex: -1,
-        pointerEvents: 'none',
-      }}
+      id="nodes"
+      style={{ position: 'fixed', top: 0, left: 0, zIndex: -2, pointerEvents: 'none' }}
     />
   )
 }
 
+/* ── Plane scroll guide ── */
+function PlaneGuide() {
+  const planeRef = useRef(null)
+  const trailPathRef = useRef(null)
+  const trailSvgRef = useRef(null)
+
+  useEffect(() => {
+    const planeEl = planeRef.current
+    const trailPath = trailPathRef.current
+    const trailSvg = trailSvgRef.current
+    if (!planeEl || !trailPath || !trailSvg) return
+
+    let pathPoints = []
+
+    function buildPath() {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const docH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+      const stripRight = vw - 60
+      const stripLeft = vw - 170
+      const segmentPx = 40
+      const count = Math.floor(docH / segmentPx)
+      pathPoints = []
+      for (let i = 0; i <= count; i++) {
+        const t = i / count
+        const docY = t * docH
+        const sway = Math.sin(t * Math.PI * 6) * 0.5 + 0.5
+        pathPoints.push({ x: stripLeft + sway * (stripRight - stripLeft), y: docY })
+      }
+      trailSvg.setAttribute('viewBox', `0 0 ${vw} ${vh}`)
+      trailSvg.setAttribute('width', vw)
+      trailSvg.setAttribute('height', vh)
+    }
+
+    function getPositionAt(sy) {
+      const docY = sy + window.innerHeight * 0.5
+      let idx = 0
+      for (let i = 0; i < pathPoints.length - 1; i++) {
+        if (pathPoints[i].y <= docY && pathPoints[i + 1].y >= docY) { idx = i; break }
+      }
+      const a = pathPoints[idx]
+      const b = pathPoints[Math.min(idx + 1, pathPoints.length - 1)]
+      const segT = (docY - a.y) / Math.max(1, b.y - a.y)
+      const x = a.x + (b.x - a.x) * segT
+      const y = docY - sy
+      const angle = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI
+      return { x, y, angle }
+    }
+
+    function updateTrail(sy) {
+      const vh = window.innerHeight
+      const startDocY = sy + vh * 0.5 - vh * 0.55
+      const endDocY = sy + vh * 0.5 + vh * 0.15
+      let d = '', first = true
+      for (const pt of pathPoints) {
+        if (pt.y < startDocY || pt.y > endDocY) continue
+        d += (first ? 'M' : 'L') + pt.x.toFixed(1) + ' ' + (pt.y - sy).toFixed(1) + ' '
+        first = false
+      }
+      trailPath.setAttribute('d', d)
+    }
+
+    function render() {
+      if (!pathPoints.length) return
+      const sy = window.scrollY
+      const pos = getPositionAt(sy)
+      planeEl.style.transform = `translate(${pos.x - 19}px, ${pos.y - 19}px) rotate(${pos.angle}deg)`
+      updateTrail(sy)
+    }
+
+    buildPath()
+    render()
+    const onResize = () => { buildPath(); render() }
+    const onScroll = () => requestAnimationFrame(render)
+    window.addEventListener('resize', onResize)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    setTimeout(() => { buildPath(); render() }, 400)
+    setTimeout(() => { buildPath(); render() }, 1200)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  return (
+    <div className="plane-guide">
+      <svg className="plane-trail" ref={trailSvgRef} preserveAspectRatio="none">
+        <path ref={trailPathRef} d="" />
+      </svg>
+      <div className="plane" ref={planeRef}>
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#7aa7ff" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" fill="none">
+            <path d="M6 32 L54 32" />
+            <path d="M54 32 L46 26 L40 26" />
+            <path d="M54 32 L46 38 L40 38" />
+            <path d="M22 32 L14 20 L20 20 L28 32" fill="rgba(122,167,255,0.12)" />
+            <path d="M22 32 L14 44 L20 44 L28 32" fill="rgba(122,167,255,0.12)" />
+            <path d="M38 32 L34 24 L38 24 L42 32" fill="rgba(122,167,255,0.2)" />
+            <path d="M38 32 L34 40 L38 40 L42 32" fill="rgba(122,167,255,0.2)" />
+            <circle cx="50" cy="32" r="1.5" fill="#7aa7ff" stroke="none" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  )
+}
+
+/* ── Flight HUD ── */
+function FlightHud() {
+  const [alt, setAlt] = useState('00000')
+
+  useEffect(() => {
+    const update = () => {
+      const scroll = window.scrollY
+      const docH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+      const p = Math.max(0, Math.min(1, scroll / Math.max(1, docH - window.innerHeight)))
+      setAlt(Math.round(p * 32000).toString().padStart(5, '0'))
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  return (
+    <div className="flight-hud">
+      <span className="hud-label">ALT</span>
+      <span className="hud-val blue">{alt} FT</span>
+      <span className="hud-divider" />
+      <span className="hud-label">HDG</span>
+      <span className="hud-val">270°</span>
+      <span className="hud-divider" />
+      <span className="hud-label">STATUS</span>
+      <span className="hud-val">IN FLIGHT</span>
+    </div>
+  )
+}
+
+/* ── Scroll to top on route change ── */
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => { window.scrollTo(0, 0) }, [pathname])
   return null
 }
 
+/* ── Reveal observer (handles both .reveal and .tl-item) ── */
 function ScrollReveal() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    // small delay so the new page's DOM is fully painted
     const t = setTimeout(() => {
       const observer = new IntersectionObserver(
         entries => {
@@ -135,10 +316,9 @@ function ScrollReveal() {
         },
         { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
       )
-      document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el))
+      document.querySelectorAll('.scroll-reveal, .reveal, .tl-item').forEach(el => observer.observe(el))
       return () => observer.disconnect()
     }, 80)
-
     return () => clearTimeout(t)
   }, [pathname])
 
@@ -146,27 +326,15 @@ function ScrollReveal() {
 }
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false)
-
-  // Loader
-  useEffect(() => {
-    const hide = () => setTimeout(() => setLoaded(true), 300)
-    if (document.readyState === 'complete') { hide() }
-    else { window.addEventListener('load', hide) }
-    return () => window.removeEventListener('load', hide)
-  }, [])
-
   return (
     <>
-      {/* {!loaded && (
-        <div id="loader">
-          <img src="/images/loader.gif" alt="" className="loader-gif" />
-        </div>
-      )} */}
+      <BgGradient />
       <NodeGraph />
+      <Grain />
+      <PlaneGuide />
+      <FlightHud />
       <ScrollToTop />
       <ScrollReveal />
-      <StatusWidget />
       <Routes>
         <Route path="/"                         element={<Home />} />
         <Route path="/about"                    element={<About />} />

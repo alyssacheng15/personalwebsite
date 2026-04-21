@@ -3,125 +3,54 @@ import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-/* ── Skills data ── */
-const SKILLS = [
-  {
-    label: 'Languages',
-    items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'HTML', 'CSS', 'C'],
-  },
-  {
-    label: 'Frameworks & Libraries',
-    items: ['React', 'Flask', 'Node.js', 'PyTorch', 'TensorFlow', 'LangChain', 'Pandas', 'NumPy'],
-  },
-  {
-    label: 'AI / ML',
-    items: ['scikit-learn', 'HuggingFace', 'OpenAI API', 'Jupyter', 'Kafka'],
-  },
-  {
-    label: 'Tools & Design',
-    items: ['Git', 'GitHub', 'Figma', 'Postman', 'Autodesk Maya', 'VS Code', 'Spline'],
-  },
-]
+/* ── Typing animation ── */
+const ROLES = ['developer', 'builder', 'pilot in training', 'creative designer', 'piano player', 'duolingo fanatic', 'explorer']
 
-function Skills() {
-  return (
-    <div className="curiosities" id="skills">
-      {/* <div className="title scroll-reveal">
-        <h1>hard skills.</h1>
-        <p>technologies and tools that I use for my creations</p>
-      </div> */}
-      <div className="skills-grid">
-        {SKILLS.map((cat, i) => (
-          <div key={cat.label} className="scroll-reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
-            <div className="skills-category-label">{cat.label}</div>
-            <div className="skills-chips-row">
-              {cat.items.map(item => (
-                <span key={item} className="skill-chip">{item}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+function TypingText() {
+  const [text, setText] = useState('')
+  const [roleIdx, setRoleIdx] = useState(0)
+  const [charIdx, setCharIdx] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    if (paused) return
+    const current = ROLES[roleIdx]
+    const speed = deleting ? 40 : 80 + Math.random() * 40
+
+    const t = setTimeout(() => {
+      if (!deleting) {
+        const next = current.slice(0, charIdx + 1)
+        setText(next)
+        setCharIdx(charIdx + 1)
+        if (next === current) {
+          setPaused(true)
+          setTimeout(() => { setPaused(false); setDeleting(true) }, 1800)
+        }
+      } else {
+        const next = current.slice(0, charIdx - 1)
+        setText(next)
+        setCharIdx(charIdx - 1)
+        if (next === '') {
+          setDeleting(false)
+          setRoleIdx((roleIdx + 1) % ROLES.length)
+          setCharIdx(0)
+        }
+      }
+    }, speed)
+    return () => clearTimeout(t)
+  }, [text, roleIdx, charIdx, deleting, paused])
+
+  return <>{text}</>
 }
 
-/* ── Project cards data ── */
-const HOME_PROJECTS = [
-  {
-    title: 'Triply',
-    desc: 'AI-powered platform for friend groups to save foodie videos, extract restaurant info, schedule hangouts, and split bills. Submitted to Berkeley AI Hackathon 2025.',
-    tags: ['React', 'TypeScript', 'Next.js', 'Claude AI', 'Firebase'],
-    image: '/projects/images/triply.png',
-    link: 'https://triply-app.vercel.app/',
-    external: true,
-    glass: true,
-  },
-  {
-    title: 'Foody Moody',
-    desc: 'Mood-based restaurant discovery app for local small businesses using the Yelp Fusion API. Submitted to Congressional App Challenge 2022.',
-    tags: ['React', 'JavaScript', 'Yelp API', 'Netlify'],
-    image: '/projects/images/fmside.png',
-    link: '',
-    external: true,
-    glass: true,
-  },
-  {
-    title: 'Zone',
-    desc: 'Companion app that restores body awareness during deep focus states without interrupting your flow. Submitted to Figma Build Hackathon 2026.',
-    tags: ['React', 'TypeScript', 'Figma', 'UI/UX'],
-    image: '/projects/images/zone.png',
-    link: 'https://flow-state.figma.site',
-    external: true,
-    glass: true,
-  },
-]
-
-function ProjectCards() {
-  return (
-    <div className="projects-section" id="projects">
-      <div className="title scroll-reveal" style={{ paddingTop: '0vw' }}>
-        <h1>projects.</h1>
-      </div>
-      <div className="project-cards-grid">
-        {HOME_PROJECTS.map((p, i) => {
-          const cls = `project-card scroll-reveal${p.glass ? ' project-card--glass' : ''}`
-          const sty = { transitionDelay: `${(i % 3) * 0.08}s` }
-          const inner = (
-            <>
-              <div className="project-card-img">
-                <img src={p.image} alt={p.title} />
-              </div>
-              <div className="project-card-body">
-                <div className="project-card-title">{p.title}</div>
-                <p className="project-card-desc">{p.desc}</p>
-                <div className="project-card-tags">
-                  {p.tags.map(tag => <span key={tag} className="project-tag">{tag}</span>)}
-                </div>
-              </div>
-            </>
-          )
-          return p.external ? (
-            <a key={p.title} href={p.link} className={cls} style={sty} target="_blank" rel="noopener noreferrer">
-              {inner}
-            </a>
-          ) : (
-            <Link key={p.title} to={p.link} className={cls} style={sty}>{inner}</Link>
-          )
-        })}
-      </div>
-      <div className="projects-view-all scroll-reveal">
-        <Link to="/projects">view all projects →</Link>
-      </div>
-    </div>
-  )
-}
-
+/* ── Experiences data ── */
 const EXPERIENCES = [
   {
     company: 'Salesforce',
-    role: 'Software Engineer Intern  ·  San Francisco, CA',
-    date: 'Incoming Summer 2026',
+    role: 'Software Engineer Intern · San Francisco, CA',
+    date: 'Summer 2026',
+    incoming: true,
     tags: ['Java', 'MuleSoft', 'Distributed Systems', 'Messaging'],
     bullets: [
       'Incoming intern on the MuleSoft team (Marketing Cloud) building web-scale, distributed messaging and storage services',
@@ -129,209 +58,317 @@ const EXPERIENCES = [
   },
   {
     company: 'Lucid Motors',
-    role: 'Software Developer  ·  Contract',
-    date: 'September 2025 – February 2026',
+    role: 'Software Developer · Contract',
+    date: 'Sept 2025 – Feb 2026',
     tags: ['Python', 'PyTorch', 'LiDAR', '3D Reconstruction', 'Computer Vision', 'Metric3D'],
     bullets: [
       'Built robust end-to-end data pipelines for LiDAR-to-depth projection, RGB image preprocessing, and dense point cloud generation, supporting accurate metric-scale 3D scene reconstruction across diverse driving scenarios for Lucid vehicles',
-      'Integrated Metric3D-based monocular depth models into the pipeline, performed LiDAR-to-camera calibration, as well as developed evaluation workflows to improve depth accuracy by ∼ 35% (AbsRel) and threshold accuracy to ∼ 70%',
+      'Integrated Metric3D-based monocular depth models into the pipeline, performed LiDAR-to-camera calibration, as well as developed evaluation workflows to improve depth accuracy by∼35% (AbsRel) and threshold accuracy to∼70%',
       'Implemented enhancements such as distance-weighted loss and multi-camera normalization for maintaining reliability',
     ],
   },
   {
     company: 'Nextdoor',
-    role: 'Software Engineer Intern  ·  San Francisco, CA',
-    date: 'May 2025 – August 2025',
+    role: 'Software Engineer Intern · San Francisco, CA',
+    date: 'May 2025 – Aug 2025',
     tags: ['Java', 'Python', 'PyTorch', 'HuggingFace', 'Kafka', 'NLP', 'Pandas'],
     bullets: [
-      'Increased the relevance accuracy of Nextdoor\u2019s ad recommendation engine by \u223c 12% by pioneering/integrating a NLP model from HuggingFace to understand the semantic relationships between user posts and ads using Java and PyTorch',
-      'Built a distributed data pipeline using Java and RPCs to ingest content categories from user feed, generate embeddings, and compute/stream the cosine similarity to the ads recommendation engine, processing \u223c 850k% messages efficiently',
-      'Evaluated and fine-tuned NLP embedding models, developing benchmarking scripts in Python with Pandas and Jupyter Notebooks to cut inference latency per message while preserving semantic similarity accuracy and guide model selection',
-      'Reduced total processing time by \u223c 90% by implementing an asynchronous Kafka flow with dedicated consumers, enabling pods to start immediately while maintaining low-latency and accurate ad recommendations for all users',
+      'Increased the relevance accuracy of Nextdoor’s ad recommendation engine by∼12% by pioneering/integrating a NLP model from HuggingFace to understand the semantic relationships between user posts and ads using Java and PyTorch',
+      'Built a distributed data pipeline using Java and RPCs to ingest content categories from user feed, generate embeddings, and compute/stream the cosine similarity to the ads recommendation engine, processing∼850k% messages efficiently',
+      'Evaluated and fine-tuned NLP embedding models, developing benchmarking scripts in Python with Pandas and JupyterNotebooks to cut inference latency per message while preserving semantic similarity accuracy and guide model selection',
+      'Reduced total processing time by∼90% by implementing an asynchronous Kafka flow with dedicated consumers, enabling pods to start immediately while maintaining low-latency and accurate ad recommendations for all users',
     ],
   },
   {
     company: 'Magic Labs',
-    role: 'Software Developer  ·  Contract',
+    role: 'Software Developer · Contract',
     date: 'Feb 2025 – May 2025',
     tags: ['Python', 'LangChain', 'OpenAI API', 'Blockchain', 'Web3'],
     bullets: [
       'Designed/implemented an LLM SDK for creating AI agents that can autonomously interact with blockchain networks and perform transactions such as wallet creation, balance checking, and currency swaps using Python and LangChain',
-      'Integrated a decentralized, cryptocurrency exchange protocol (Uniswap) by connecting LangChain/OpenAI agents and the SDK to interact with ERC20 contracts and sign/broadcast transactions using cryptographic keys',
+      'Integrated a decentralized, cryptocurrency exchange protocol (Uniswap) by connecting LangChain/OpenAI agents andthe SDK to interact with ERC20 contracts and sign/broadcast transactions using cryptographic keys',
     ],
   },
 ]
 
-function Experience() {
-  const itemRefs = useRef([])
+/* ── Featured projects ── */
+const HOME_PROJECTS = [
+  {
+    title: 'Triply',
+    desc: 'AI-powered platform for friend groups to save foodie videos, extract restaurant info, schedule hangouts, and split bills. Submitted to Berkeley AI Hackathon 2025.',
+    meta: 'Berkeley AI Hackathon · 2025',
+    tags: ['React', 'TypeScript', 'Next.js', 'Claude AI', 'Firebase'],
+    image: '/projects/images/triply.png',
+    link: 'https://triply-app.vercel.app/',
+    external: true,
+  },
+  {
+    title: 'Zone',
+    desc: 'Companion app that restores body awareness during deep focus states without interrupting your flow. Submitted to Figma Build Hackathon 2026.',
+    meta: 'Figma Build Hackathon · 2026',
+    tags: ['React', 'TypeScript', 'Figma', 'UI/UX'],
+    image: '/projects/images/zone.png',
+    link: 'https://flow-state.figma.site',
+    external: true,
+  },
+  {
+    title: 'Foody Moody',
+    desc: 'Mood-based restaurant discovery app for local small businesses using the Yelp Fusion API. Submitted to Congressional App Challenge 2022.',
+    meta: 'Congressional App Challenge · 2022',
+    tags: ['React', 'JavaScript', 'Yelp API', 'Netlify'],
+    image: '/projects/images/fmside.png',
+    link: '',
+    external: true,
+  },
+]
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible')
-        })
-      },
-      { threshold: 0.15 }
-    )
-    itemRefs.current.forEach(el => { if (el) observer.observe(el) })
-    return () => observer.disconnect()
-  }, [])
+/* ── Skills ── */
+const SKILLS = [
+  { label: 'Languages',       items: ['Python', 'Java', 'C', 'C++', 'JavaScript', 'TypeScript', 'Kotlin', 'SQL', 'Swift', 'HTML/CSS'] },
+  { label: 'Frameworks',      items: ['React', 'Next.js', 'Flask', 'Node.js', 'Express.js', 'PyTorch', 'TensorFlow', 'LangChain'] },
+  { label: 'AI / ML / Data',  items: ['scikit-learn', 'HuggingFace', 'OpenAI API', 'Pandas', 'NumPy', 'Kafka', 'Jupyter'] },
+  { label: 'Tools & Design',  items: ['AWS', 'Git', 'Protobuf', 'MongoDB', 'Kafka', 'Kubernetes', 'Figma', 'Docker', 'SQLite', 'Jupyter', 'Firebase', 'Autodesk Maya', 'Spline', 'Postman', 'VS Code', 'Databricks'] },
+]
 
-  return (
-    <div className="experience" id="experience">
-      <div className="title">
-        <h1>experience</h1>
-        <a href="/images/Alyssa_Cheng_Resume.pdf" target="_blank" rel="noopener noreferrer" className="resume-link">view resume ↗</a>
+/* ── Project card with 3D tilt ── */
+function PCard({ project, index }) {
+  const cardRef = useRef(null)
+  const rafRef = useRef(null)
+
+  const handleMove = (e) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const dx = (e.clientX - rect.left - rect.width / 2) / rect.width
+    const dy = (e.clientY - rect.top - rect.height / 2) / rect.height
+    cancelAnimationFrame(rafRef.current)
+    rafRef.current = requestAnimationFrame(() => {
+      if (cardRef.current)
+        cardRef.current.style.transform = `perspective(1200px) rotateY(${dx * 8}deg) rotateX(${-dy * 8}deg) translateZ(6px)`
+    })
+  }
+  const handleLeave = () => {
+    cancelAnimationFrame(rafRef.current)
+    if (cardRef.current) cardRef.current.style.transform = ''
+  }
+
+  const inner = (
+    <div className="p-card-inner">
+      <div className="p-card-img">
+        <img src={project.image} alt={project.title} loading="lazy" />
       </div>
-      <div className="timeline">
-        {EXPERIENCES.map((exp, i) => (
-          <div
-            key={exp.company}
-            className="timeline-item"
-            ref={el => (itemRefs.current[i] = el)}
-            style={{ transitionDelay: `${i * 0.1}s` }}
-          >
-            <div>
-              <span className="timeline-company">{exp.company}</span>
-              <span className="timeline-date">{exp.date}</span>
-            </div>
-            <div className="timeline-role">{exp.role}</div>
-            <ul className="timeline-bullets">
-              {exp.bullets.map((b, j) => (
-                <li key={j}>{b}</li>
-              ))}
-            </ul>
-            {exp.tags && (
-              <div className="timeline-tags">
-                {exp.tags.map(tag => (
-                  <span key={tag} className="skill-chip">{tag}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="p-card-body">
+        <div className="p-card-top">
+          <span className="p-card-title">{project.title}</span>
+          <span className="p-card-ext">open →</span>
+        </div>
+        {project.meta && <div className="p-card-meta">{project.meta}</div>}
+        <p className="p-card-desc">{project.desc}</p>
+        <div className="p-card-tags">
+          {project.tags.map(t => <span key={t} className="p-card-tag">{t}</span>)}
+        </div>
       </div>
     </div>
   )
-}
 
-const CONTENT = [
-  'developer', 'builder', 'creative designer', 'explorer',
-   'pilot in training', 'piano player', 'duolingo fanatic',
-]
+  const cls = 'p-card reveal'
+  const sty = { transitionDelay: `${(index % 3) * 0.08}s` }
 
-function TypingText() {
-  const [text, setText] = useState('')
-  const [part, setPart] = useState(0)
-  const [charIdx, setCharIdx] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-  const [paused, setPaused] = useState(false)
-
-  useEffect(() => {
-    if (paused) return
-    const current = CONTENT[part]
-    const speed = deleting ? 50 : 200
-
-    const t = setTimeout(() => {
-      if (!deleting) {
-        const next = current.substring(0, charIdx + 1)
-        setText(next)
-        setCharIdx(charIdx + 1)
-        if (next === current) {
-          setPaused(true)
-          setTimeout(() => { setPaused(false); setDeleting(true) }, 2500)
-        }
-      } else {
-        const next = current.substring(0, charIdx - 1)
-        setText(next)
-        setCharIdx(charIdx - 1)
-        if (next === '') {
-          setDeleting(false)
-          setPart((part + 1) % CONTENT.length)
-          setCharIdx(0)
-        }
-      }
-    }, speed)
-    return () => clearTimeout(t)
-  }, [text, part, charIdx, deleting, paused])
-
-  return <>{text}</>
+  return project.external ? (
+    <a ref={cardRef} href={project.link || undefined} className={cls} style={sty}
+       target="_blank" rel="noopener noreferrer"
+       onMouseMove={handleMove} onMouseLeave={handleLeave}>
+      {inner}
+    </a>
+  ) : (
+    <Link ref={cardRef} to={project.link} className={cls} style={sty}
+          onMouseMove={handleMove} onMouseLeave={handleLeave}>
+      {inner}
+    </Link>
+  )
 }
 
 export default function Home() {
-  const heroContentRef = useRef(null)
-  const [scrollHintVisible, setScrollHintVisible] = useState(false)
+  const heroLeftRef  = useRef(null)
+  const heroRightRef = useRef(null)
+  const tiltCardRef  = useRef(null)
+  const tiltRAF      = useRef(null)
 
-  // Fade hero content as user scrolls away
+  /* Hero parallax on scroll */
   useEffect(() => {
     const onScroll = () => {
-      const progress = window.scrollY / (window.innerHeight * 0.55)
-      const opacity = Math.max(0, 1 - progress)
-      if (heroContentRef.current) heroContentRef.current.style.opacity = opacity
+      const y = window.scrollY
+      if (y > window.innerHeight) return
+      const stacked = window.innerWidth <= 1000
+      const left  = heroLeftRef.current
+      const right = heroRightRef.current
+      if (left) {
+        left.style.transform = `translateY(${y * 0.18}px)`
+        left.style.opacity   = Math.max(0, 1 - y / (window.innerHeight * 0.8))
+      }
+      if (right) {
+        if (stacked) {
+          right.style.transform = ''
+          right.style.opacity   = '1'
+        } else {
+          right.style.transform = `translateY(${y * 0.08}px)`
+          right.style.opacity   = String(Math.max(0, 1 - y / (window.innerHeight * 0.9)))
+        }
+      }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Show scroll hint after 3s, hide on first scroll
-  useEffect(() => {
-    const timer = setTimeout(() => setScrollHintVisible(true), 1500)
-    const onScroll = () => setScrollHintVisible(false)
-    window.addEventListener('scroll', onScroll, { passive: true, once: true })
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
+  /* Tilt card 3D effect */
+  const handleTiltMove = (e) => {
+    if (!heroRightRef.current || !tiltCardRef.current) return
+    const rect = heroRightRef.current.getBoundingClientRect()
+    const dx = (e.clientX - rect.left - rect.width / 2) / rect.width
+    const dy = (e.clientY - rect.top  - rect.height / 2) / rect.height
+    cancelAnimationFrame(tiltRAF.current)
+    tiltRAF.current = requestAnimationFrame(() => {
+      if (tiltCardRef.current) {
+        tiltCardRef.current.style.transform = `rotateY(${dx * 14}deg) rotateX(${-dy * 14}deg)`
+        tiltCardRef.current.style.setProperty('--mx', `${(dx + 0.5) * 100}%`)
+        tiltCardRef.current.style.setProperty('--my', `${(dy + 0.5) * 100}%`)
+      }
+    })
+  }
+  const handleTiltLeave = () => {
+    cancelAnimationFrame(tiltRAF.current)
+    if (tiltCardRef.current) tiltCardRef.current.style.transform = 'rotateY(0) rotateX(0)'
+  }
 
   return (
     <>
-      {/* HERO */}
-      <div className="cover" id="about">
-        <Navbar variant="home" />
-        <div className="hero-inner" ref={heroContentRef}>
-          <div className="hero-name-block">
-            <h1 className="hero-name">
-              <span className="hero-first">Alyssa</span>
-              <span className="hero-last">Cheng</span>
-            </h1>
-            <p className="hero-typing">
-              <span className="hero-arrow">&gt;</span>
-              <TypingText />
-              <span className="hero-cursor" />
-            </p>
-          </div>
+      <Navbar variant="home" />
 
-          <div className="hero-bio-block">
-            <p className="hero-bio">
-              Hi! I'm a student at UC Berkeley studying Data Science & Computer Science. I'm passionate about building innovative solutions 
-              and exploring the intersection of technology, creativity, and social good.
-            </p>
-            <div className="hero-ctas">
-              <a href="#experience" className="hero-btn-primary">View Work</a>
-            </div>
+      {/* ── HERO ── */}
+      <section className="hero" id="home">
+        <div className="hero-left" ref={heroLeftRef}>
+          {/* <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            UC Berkeley · CS + Data Science · Class of '27
+          </div> */}
+          <h1 className="hero-name">
+            <span className="line-1">Alyssa Cheng</span>
+            {/* <span className="line-2">Cheng</span> */}
+          </h1>
+          <div className="hero-typing">
+            <span className="chev">&gt;</span>
+            <TypingText />
+            <span className="cursor" />
           </div>
+          <p className="hero-bio">
+            Hi! I'm a student at UC Berkeley studying Data Science & Computer Science. 
+            I'm passionate about building innovative solutions and exploring the intersection of 
+            technology, creativity, and social innovation.
+          </p>
+          <div className="hero-ctas">
+            <a href="/#experience" className="btn btn-ghost">VIEW WORK <span className="arrow">→</span></a>
+          </div>
+        </div>
 
-          <div className="hero-right">
-            <div className="hero-photo">
+        <div className="hero-right" ref={heroRightRef}
+             onMouseMove={handleTiltMove} onMouseLeave={handleTiltLeave}>
+          <div className="tilt-card" ref={tiltCardRef}>
+            <div className="tilt-corner tl" />
+            <div className="tilt-corner tr" />
+            <div className="tilt-corner bl" />
+            <div className="tilt-corner br" />
+            <div className="tilt-card-frame">
               <img src="/images/alyssa.png" alt="Alyssa Cheng" />
             </div>
+            <div className="tilt-gloss" />
+            <div className="tilt-chip chip-location">
+              <span className="chip-dot" />SF / LA
+            </div>
+            <div className="tilt-chip chip-role">
+              <span className="chip-dot" /> UC BERKELEY '27
+            </div>
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <div className={`hero-scroll-hint${scrollHintVisible ? ' hero-scroll-hint--visible' : ''}`}>
+        <div className="scroll-hint">
           <span>scroll</span>
-          <div className="hero-scroll-line" />
+          <div className="scroll-hint-line" />
         </div>
-      </div>
+      </section>
 
-      <Experience />
+      {/* ── EXPERIENCE ── */}
+      <section id="experience">
+        <div className="section-header reveal">
+          <div>
+            <span className="section-num">where I've learned and grown</span>
+            <h2 className="section-title">Experience</h2>
+            <a href="/images/Alyssa_Cheng_Resume.pdf" target="_blank" rel="noopener noreferrer"
+               className="btn btn-ghost">Resume <span className="arrow">↗</span></a>
+          </div>
+          {/* <p className="section-sub">where I've learned and grown as a developer.</p> */}
+        </div>
+        <div className="home-timeline">
+          {EXPERIENCES.map((exp, i) => (
+            <div
+              key={exp.company}
+              className={`tl-item${exp.incoming ? ' current' : ''}`}
+              style={{ transitionDelay: `${i * 0.08}s` }}
+            >
+              <div className="tl-head">
+                <span className="tl-company">{exp.company}</span>
+                <span className="tl-date">
+                  {exp.incoming && <span className="incoming">●</span>}
+                  {exp.date}
+                </span>
+              </div>
+              <div className="tl-role">{exp.role}</div>
+              <ul className="tl-bullets">
+                {exp.bullets.map((b, j) => <li key={j}>{b}</li>)}
+              </ul>
+              <div className="tl-tags">
+                {exp.tags.map(t => <span key={t} className="tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <ProjectCards />
+      {/* ── PROJECTS ── */}
+      <section id="projects">
+        <div className="section-header reveal">
+          <div>
+            <span className="section-num">hackathons & fun work</span>
+            <h2 className="section-title">Projects</h2>
+          </div>
+          {/* <p className="section-sub">side projects, hackathon wins, and the occasional brand system.</p> */}
+        </div>
+        <div className="projects-grid">
+          {HOME_PROJECTS.map((p, i) => <PCard key={p.title} project={p} index={i} />)}
+        </div>
+        <div className="projects-more reveal">
+          <Link to="/projects" className="btn btn-ghost">All projects <span className="arrow">→</span></Link>
+        </div>
+      </section>
 
-      <Skills />
+      {/* ── SKILLS ── */}
+      <section id="skills">
+        {/* <div className="section-header reveal">
+          <div>
+            <span className="section-num">04 — Toolbox</span>
+            <h2 className="section-title">What I<br />reach for.</h2>
+          </div>
+          <p className="section-sub">code, frameworks, the occasional design tool — the stuff that's on my desk.</p>
+        </div> */}
+        <div className="new-skills-grid">
+          {SKILLS.map((cat, i) => (
+            <div key={cat.label} className="reveal" style={{ transitionDelay: `${i * 0.06}s` }}>
+              <div className="skill-cat-label">{cat.label}</div>
+              <div className="skill-chips">
+                {cat.items.map(item => <span key={item} className="skill-chip">{item}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <Footer />
     </>

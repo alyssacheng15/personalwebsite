@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 
 const NAV_LINKS = [
-  { to: '/',           label: 'home' },
-  { to: '/about',      label: 'about' },
-  { to: '/experience', label: 'experience' },
-  { to: '/projects',   label: 'work' },
-  { to: '/places',     label: 'places' },
+  { to: '/#home',           label: 'home', hash: true },
+  { to: '/about',      label: 'about', hash: false },
+  { to: '/#experience', label: 'experience', hash: true },
+  { to: '/projects',   label: 'work', hash: false },
+  { to: '/places',     label: 'places', hash: false },
 ]
 
 export default function Navbar({ variant = 'default' }) {
@@ -26,15 +27,16 @@ export default function Navbar({ variant = 'default' }) {
       <nav className={`top-nav${scrolled ? ' top-nav--scrolled' : ''}`}>
         <ul className="top-nav-links">
           {NAV_LINKS.map(l => {
-            const active = l.to === '/' ? pathname === '/' : pathname === l.to || pathname.startsWith(l.to)
+            const active = !l.external && (l.to === '/' ? pathname === '/' : pathname === l.to || pathname.startsWith(l.to))
             return (
               <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className={`top-nav-link${active ? ' top-nav-link--active' : ''}`}
-                >
-                  {l.label}
-                </Link>
+                {l.external ? (
+                  <a href={l.to} className={`top-nav-link${active ? ' top-nav-link--active' : ''}`}>{l.label}</a>
+                ) : l.hash ? (
+                  <HashLink smooth to={l.to} className={`top-nav-link${active ? ' top-nav-link--active' : ''}`}>{l.label}</HashLink>
+                ) : (
+                  <Link to={l.to} className={`top-nav-link${active ? ' top-nav-link--active' : ''}`}>{l.label}</Link>
+                )}
               </li>
             )
           })}
@@ -55,11 +57,21 @@ export default function Navbar({ variant = 'default' }) {
         >
           <button className="drawer-close" onClick={() => setOpen(false)} aria-label="Close">✕</button>
           <ul className="drawer-links">
-            {NAV_LINKS.map(l => (
-              <li key={l.to}>
-                <Link to={l.to} onClick={() => setOpen(false)}>{l.label}</Link>
-              </li>
-            ))}
+            {NAV_LINKS.map(l => {
+              const active = !l.external && (l.to === '/' ? pathname === '/' : pathname === l.to || pathname.startsWith(l.to))
+              const cls = `drawer-link${active ? ' drawer-link--active' : ''}`
+              return (
+                <li key={l.to}>
+                  {l.external ? (
+                    <a href={l.to} className={cls} onClick={() => setOpen(false)}>{l.label}</a>
+                  ) : l.hash ? (
+                    <HashLink smooth to={l.to} className={cls} onClick={() => setOpen(false)}>{l.label}</HashLink>
+                  ) : (
+                    <Link to={l.to} className={cls} onClick={() => setOpen(false)}>{l.label}</Link>
+                  )}
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
