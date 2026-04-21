@@ -75,83 +75,27 @@ const SIZES = {
 const ROW = [
   { city: 'Tokyo',      country: 'Japan',    photo: '/images/alyssa2.jpeg', size: 'p-sm',  rot: -4  },
   { city: 'Lisbon',     country: 'Portugal', photo: '/images/alyssa2.jpeg', size: 'l-md',  rot:  3  },
-  { city: 'Budapest',   country: 'Hungary',  photo: '/images/alyssa2.jpeg', size: 'p-lg',  rot: -2  },
+  { city: 'Budapest',   country: 'Hungary',  photo: '/images/alyssa1.jpeg', size: 'p-lg',  rot: -2  },
   { city: 'Taipei',     country: 'Taiwan',   photo: '/images/alyssa2.jpeg', size: 'sq',    rot:  5  },
   { city: 'Copenhagen', country: 'Denmark',  photo: '/images/alyssa2.jpeg', size: 'p-xs',  rot: -3  },
   { city: 'Bangkok',    country: 'Thailand', photo: '/images/alyssa2.jpeg', size: 'l-sm',  rot:  2  },
   { city: 'Tokyo',      country: 'Japan',    photo: '/images/alyssa2.jpeg', size: 'p-md',  rot: -5  },
   { city: 'Vienna',     country: 'Austria',  photo: '/images/alyssa2.jpeg', size: 'l-lg',  rot:  3  },
-  { city: 'NYC',        country: 'USA',      photo: '/images/alyssa2.jpeg', size: 'p-xs',  rot: -4  },
+  { city: 'NYC',        country: 'USA',      photo: '/images/alyssa1.jpeg', size: 'p-xs',  rot: -4  },
   { city: 'Malmö',      country: 'Sweden',   photo: '/images/alyssa2.jpeg', size: 'p-md',  rot:  2  },
-  { city: 'Munich',     country: 'Germany',  photo: '/images/alyssa2.jpeg', size: 'l-sm',  rot: -5  },
+  { city: 'Munich',     country: 'Germany',  photo: '/images/alyssa1.jpeg', size: 'l-sm',  rot: -5  },
   { city: 'Vancouver',  country: 'Canada',   photo: '/images/alyssa2.jpeg', size: 'p-lg',  rot:  4  },
   { city: 'Lisbon',     country: 'Portugal', photo: '/images/alyssa2.jpeg', size: 'sq',    rot: -2  },
   { city: 'Bratislava', country: 'Slovakia', photo: '/images/alyssa2.jpeg', size: 'l-md',  rot:  1  },
+  { city: 'Mexico City', country: 'Mexico', photo: '/images/alyssa3.jpeg', size: 'l-md',  rot:  1  },
+  { city: 'Yellowknife', country: 'Canada', photo: '/images/alyssa2.jpeg', size: 'l-md',  rot:  1  },
 ]
 
-function Polaroid({ item }) {
-  const [hov, setHov] = useState(false)
-  const sz = SIZES[item.size]
-
+function PlaceCard({ item }) {
   return (
-    <div
-      className={`polaroid${hov ? ' polaroid--hovered' : ''}`}
-      style={{ '--rot': `${item.rot}deg`, '--w': `${sz.w}px`, '--img-h': `${sz.imgH}px` }}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-    >
-      <div className="polaroid-pin" />
-      <div className="polaroid-img">
-        {item.photo
-          ? <img src={item.photo} alt={item.city} />
-          : <div className="polaroid-placeholder"><span>📷</span></div>
-        }
-      </div>
-      <div className="polaroid-caption">
-        <span className="polaroid-city">{item.city}</span>
-        <span className="polaroid-country">{item.country}</span>
-      </div>
-    </div>
-  )
-}
-
-function GalleryRow({ items }) {
-  const rowRef = useRef(null)
-  const [hint, setHint] = useState(false)
-
-  useEffect(() => {
-    const el = rowRef.current
-    if (!el) return
-
-    const check = () => {
-      const overflows = el.scrollWidth > el.clientWidth + 4
-      const atEnd     = el.scrollLeft + el.clientWidth >= el.scrollWidth - 16
-      setHint(overflows && !atEnd)
-    }
-
-    check()
-    el.addEventListener('scroll', check, { passive: true })
-    window.addEventListener('resize', check)
-    return () => {
-      el.removeEventListener('scroll', check)
-      window.removeEventListener('resize', check)
-    }
-  }, [])
-
-  return (
-    <div className="gallery-row-wrap">
-      <div className="gallery-line" />
-      <div className="gallery-row" ref={rowRef}>
-        {items.map((item, i) => <Polaroid key={i} item={item} />)}
-      </div>
-      <div className={`gallery-hint${hint ? ' gallery-hint--visible' : ''}`}>
-        <span>scroll to see more</span>
-        <svg width="16" height="10" viewBox="0 0 16 10" fill="none"
-          stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-          <line x1="0" y1="5" x2="13" y2="5" />
-          <polyline points="9,1 13,5 9,9" />
-        </svg>
-      </div>
+    <div className="vsco-card">
+      {item.photo && <img src={item.photo} alt={item.city} className="vsco-img" />}
+      <p className="vsco-caption">{item.city.toLowerCase()}</p>
     </div>
   )
 }
@@ -163,7 +107,11 @@ function Gallery() {
         <h1>captured.</h1>
         <p>moments from the road</p>
       </div>
-      <GalleryRow items={ROW} />
+      <div className="vsco-gallery">
+        {ROW.map((item, i) => (
+          <PlaceCard key={i} item={item} />
+        ))}
+      </div>
     </div>
   )
 }

@@ -16,6 +16,7 @@ import DesignYourWorld from './pages/projects/DesignYourWorld'
 import Skin from './pages/projects/Skin'
 import ThreeD from './pages/projects/ThreeD'
 import Sft from './pages/projects/Sft'
+import StatusWidget from './components/StatusWidget'
 
 /* ── Background gradient ── */
 function BgGradient() {
@@ -333,6 +334,7 @@ export default function App() {
       <Grain />
       <PlaneGuide />
       <FlightHud />
+      <StatusWidget />
       <ScrollToTop />
       <ScrollReveal />
       <Routes>
