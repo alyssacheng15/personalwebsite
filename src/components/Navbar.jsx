@@ -5,7 +5,7 @@ import { HashLink } from 'react-router-hash-link'
 const NAV_LINKS = [
   { to: '/#home',           label: 'home', hash: true },
   { to: '/about',      label: 'about', hash: false },
-  { to: '/#experience', label: 'experience', hash: true },
+  { to: '/experience', label: 'experience', hash: false },
   { to: '/projects',   label: 'work', hash: false },
   { to: '/places',     label: 'places', hash: false },
 ]

@@ -142,13 +142,16 @@ const MOBILE_QUERY = '(max-width: 1000px)'
 export default function Places() {
   const [hovered,  setHovered]  = useState(null)
   const [selected, setSelected] = useState(null)
+  const [mapHovered, setMapHovered] = useState(false)
   const [panelOpen, setPanelOpen] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia(MOBILE_QUERY).matches
   )
+  const [hintStyle, setHintStyle] = useState({ position: 'fixed', bottom: '20px' })
   const [zoom,     setZoom]     = useState(HOME_VIEW.zoom)
   const [center,   setCenter]   = useState(HOME_VIEW.center)
   const mapRef = useRef(null)
   const layoutRef = useRef(null)
+  const hintRef = useRef(null)
   const wasOpenRef = useRef(false)
   const zoomRef = useRef(zoom)
   const centerRef = useRef(center)
@@ -229,6 +232,24 @@ export default function Places() {
     }
   }, [panelOpen])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hintRef.current || !mapRef.current) return
+      const mapRect = mapRef.current.getBoundingClientRect()
+      const mapBottom = mapRect.bottom
+      const viewportHeight = window.innerHeight
+
+      if (mapBottom <= viewportHeight) {
+        setHintStyle({ position: 'absolute', bottom: '-30px', top: 'auto' })
+      } else {
+        setHintStyle({ position: 'fixed', bottom: '20px', top: 'auto' })
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   useEffect(() => () => {
     if (animRef.current) cancelAnimationFrame(animRef.current)
   }, [])
@@ -279,9 +300,11 @@ export default function Places() {
 
   const handleMapMouseEnter = useCallback(() => {
     document.body.dataset.nodeQuiet = 'true'
+    setMapHovered(true)
   }, [])
   const handleMapMouseLeave = useCallback(() => {
     document.body.dataset.nodeQuiet = 'false'
+    setMapHovered(false)
   }, [])
   useEffect(() => () => { document.body.dataset.nodeQuiet = 'false' }, [])
 
@@ -297,8 +320,8 @@ export default function Places() {
 
         <div className="page-head">
           <span className="section-num">● Places</span>
-          <h1>cities i've<br />traveled to.</h1>
-          <p className="sub">stamps in the passport, snapshots in the rolls.</p>
+          <h1>places I've been to</h1>
+          <p className="sub"> I believe exploring the world allows us to have a richer understanding of different cultures and perspectives, which is integrated in my work philosophhy.</p>
         </div>
 
         <div
@@ -311,6 +334,7 @@ export default function Places() {
             onMouseEnter={handleMapMouseEnter}
             onMouseLeave={handleMapMouseLeave}
           >
+            {mapHovered && <div className="map-hint">click a point to explore</div>}
             <div className="map-zoom-controls">
               <button onClick={() => handleZoomBtn(0.75)} aria-label="Zoom in">+</button>
               <button onClick={() => handleZoomBtn(-0.75)} aria-label="Zoom out">−</button>
@@ -367,14 +391,14 @@ export default function Places() {
                     >
                       <circle
                         r={(active ? 5.5 : 4) / zoom}
-                        fill={active ? '#e8c84a' : 'rgba(232,228,220,0.8)'}
-                        stroke={active ? '#e8c84a' : 'rgba(232,228,220,0.35)'}
+                        fill={active ? '#7aa7ff' : 'rgba(232,228,220,0.8)'}
+                        stroke={active ? '#7aa7ff' : 'rgba(232,228,220,0.35)'}
                         strokeWidth={(active ? 2 : 1) / zoom}
                         style={{
                           cursor: 'pointer',
                           transition: 'fill 0.2s, r 0.2s',
                           filter: active
-                            ? 'drop-shadow(0 0 5px rgba(232,200,74,0.85))'
+                            ? 'drop-shadow(0 0 5px rgba(122,167,255,0.85))'
                             : 'none',
                         }}
                       />
@@ -383,6 +407,10 @@ export default function Places() {
                 })}
               </ZoomableGroup>
             </ComposableMap>
+            <div className="scroll-hint explore-hint" ref={hintRef} style={hintStyle}>
+              <span>explore</span>
+              <div className="scroll-hint-line" />
+            </div>
           </div>
 
           {panelOpen && (
@@ -390,7 +418,7 @@ export default function Places() {
               <div className="panel-header">
                 <span className="panel-title">destinations</span>
                 <button
-                  className="panel-close"
+                  className="panel-close panel-close-desktop"
                   onClick={handleClose}
                   aria-label="Close panel"
                 >

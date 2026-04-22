@@ -321,14 +321,15 @@ export default function Home() {
                 </span>
               </div>
               <div className="tl-role">{exp.role}</div>
-              <ul className="tl-bullets">
-                {exp.bullets.map((b, j) => <li key={j}>{b}</li>)}
-              </ul>
+              <p style={{ fontFamily: 'Alegreya Sans', fontSize: '16px', lineHeight: '1.65', color: 'var(--ink-soft)', marginBottom: '16px' }}>{exp.bullets[0]}</p>
               <div className="tl-tags">
                 {exp.tags.map(t => <span key={t} className="tag">{t}</span>)}
               </div>
             </div>
           ))}
+        </div>
+        <div className="section-cta">
+          <Link to="/experience" className="btn btn-ghost">more details <span className="arrow">→</span></Link>
         </div>
       </section>
 

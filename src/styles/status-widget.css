@@ -281,7 +281,7 @@
 /* ── Mobile ── */
 @media (max-width: 649px) {
   .status-widget { top: 16px; right: 16px; }
-  .character { width: 50px; height: 54px; }
+  .character { width: 40px; height: 44px; }
   .character-head { width: 30px; height: 28px; top: 7px; }
   .character-cap { width: 30px; height: 12px; }
   .character-cap::before { width: 36px; height: 4px; }

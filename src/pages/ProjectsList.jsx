@@ -124,8 +124,8 @@ export default function ProjectsList() {
 
       <div className="page-head">
         <span className="section-num">● Work</span>
-        <h1>things i've<br />shipped.</h1>
-        <p className="sub">side projects, hackathon wins, and production code in disguise.</p>
+        <h1>projects I've built</h1>
+        <p className="sub">side projects, hackathon wins, and other creative work</p>
       </div>
 
       <section style={{ paddingTop: '20px' }}>

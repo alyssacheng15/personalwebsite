@@ -3,7 +3,7 @@ import '../styles/status-widget.css'
 
 // Change these to update your status
 const STATUS = {
-  text: 'chasing sunsets',
+  text: 'currently: chasing sunsets',
   emoji: '◐',
 }
 
