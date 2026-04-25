@@ -56,6 +56,16 @@ const EXPERIENCES = [
       'Incoming intern on the MuleSoft team (Marketing Cloud) building web-scale, distributed messaging and storage services',
     ],
   },
+    {
+    company: 'Microsoft',
+    role: 'Project Manager & Software Developer · Contract',
+    date: 'April 2026 - Current',
+    incoming: true,
+    tags: ['Technical Project Management', 'Rust', 'Python', 'Quantum Computing', 'Developer Tooling'],
+    bullets: [
+      'Leading a student engineering team in partnership with Microsoft Quantum to build developer tooling and a benchmarking portal for their open-source Quantum Resource Estimator, coordinating directly with Principal and Senior TPMs to define scope and delivery milestones',
+    ],
+  },
   {
     company: 'Lucid Motors',
     role: 'Software Developer · Contract',

@@ -13,6 +13,17 @@ const EXPERIENCES = [
     ],
   },
   {
+    company: 'Microsoft',
+    role: 'Project Lead & Software Developer · Contract',
+    date: 'April 2026 - Current',
+    incoming: true,
+    tags: ['Technical Project Management', 'Rust', 'Python', 'Quantum Computing', 'Developer Tooling'],
+    bullets: [
+      'Leading a student engineering team in partnership with Microsoft Quantum to build developer tooling and a benchmarking portal for their open-source Quantum Resource Estimator, coordinating directly with Principal and Senior TPMs to define scope and delivery milestones',
+      'Driving technical planning across two concurrent workstreams — conducting codebase analysis of Microsoft\'s QDK (Rust/Python/WASM), defining architecture decisions, and establishing project processes for a cross-functional team spanning Microsoft and university research partners',
+    ],
+  },
+  {
     company: 'Lucid Motors',
     role: 'Software Developer · Contract',
     date: 'Sept 2025 – Feb 2026',
@@ -43,6 +54,16 @@ const EXPERIENCES = [
     bullets: [
       'Designed/implemented an LLM SDK for creating AI agents that can autonomously interact with blockchain networks and perform transactions such as wallet creation, balance checking, and currency swaps using Python and LangChain',
       'Integrated a decentralized, cryptocurrency exchange protocol (Uniswap) by connecting LangChain/OpenAI agents and the SDK to interact with ERC20 contracts and sign/broadcast transactions using cryptographic keys',
+    ],
+  },
+    {
+    company: 'Hyphenova',
+    role: 'Software Engineer & UI/UX Lead Intern',
+    date: 'March 2024 – Aug 2024',
+    tags: ['React', 'UI/UX', 'Python', 'NLP', 'Multilingual Classification'],
+    bullets: [
+      'Led UI/UX development cycles with the founding team, using analytics and user feedback to inform product iterations',
+      'Preprocessed datasets to fine-tune NLP models for multilingual topic classification and creator-brand alignment',
     ],
   },
 ]
